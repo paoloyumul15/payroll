@@ -7,3 +7,5 @@
 Homestead.json
 Homestead.yaml
 .env
+notes.txt
+.php_cs.cache
