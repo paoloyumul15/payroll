@@ -2,22 +2,33 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class UserTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
+    use DatabaseMigrations;
+
+    /** @test */
+    public function an_admin_can_view_all_employees()
     {
-        $response = $this->get('/');
+        $user = factory(User::class)->create();
+
+        $response = $this->get('/employees');
 
         $response->assertStatus(200);
+        $response->assertSee($user->first_name);
+    }
+
+    /** @test */
+    public function an_admin_can_view_specific_employee()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->get('/employees/'.$user->id);
+
+        $response->assertStatus(200);
+        $response->assertSee($user->first_name);
     }
 }
