@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'maritalStatus' => [
+    'maritalStatuses' => [
         'SI' => 'Single',
         'MA' => 'Married',
         'SE' => 'Separated',

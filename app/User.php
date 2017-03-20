@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Profile;
+use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -16,7 +17,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'employee_id',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'email',
+        'password',
+        'type',
     ];
 
     /**
@@ -29,7 +36,29 @@ class User extends Authenticatable
     ];
 
     /**
+     * Hash the user password when setting it
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * Generate a path for a user
+     *
+     * @return string
+     */
+    public function path()
+    {
+        return '/employees/' . $this->id;
+    }
+
+    /**
      * Get the user's profile
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function profile()
@@ -37,8 +66,21 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function path()
+    /**
+     * Create the user with the profile
+     *
+     * @param array $attributes
+     * @return mixed
+     */
+    public static function createProfile(array $attributes)
     {
-        return '/employees/' . $this->id;
+        return DB::transaction(function () use ($attributes) {
+            /** @var User $user */
+            $user = (new self)->create($attributes);
+
+            $user->profile()->create($attributes + ['status' => 'Active']);
+
+            return $user;
+        });
     }
 }

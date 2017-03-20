@@ -20,4 +20,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/employees', 'UserController@index');
+Route::get('/employees/create', 'UserController@create');
 Route::get('/employees/{user}', 'UserController@show');
+Route::post('/employees', 'UserController@store');

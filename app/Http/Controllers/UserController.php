@@ -14,6 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('index', User::class);
+
         $users = User::all();
 
         return view('users.index', compact('users'));
@@ -26,7 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', User::class);
+
+        return view('users.create');
     }
 
     /**
@@ -37,24 +41,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('store', User::class);
+
+        User::createProfile($request->all());
+
+        return redirect('/employees');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
+        $this->authorize('show', $user);
+
         return view('users.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
