@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -69,7 +70,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $user = $user->load('profile');
+
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -81,7 +84,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->all();
+
+        $user->update($data);
+
+        return redirect('/employees');
     }
 
     /**
@@ -92,6 +99,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->back();
     }
 }

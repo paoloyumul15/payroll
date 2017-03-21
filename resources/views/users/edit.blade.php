@@ -8,8 +8,12 @@
                     <div class="panel-heading">Add Employee</div>
 
                     <div class="panel-body">
-                        <form action="/employees" method="post">
-                            @include("users._partials.form")
+                        <form action="{{ $user->path() }}" method="post">
+                            {{ method_field('patch') }}
+                            @include("users._partials.form", [
+                                'user' => $user,
+                                'buttonText' => 'Update Profile',
+                            ])
                         </form>
                     </div>
                 </div>
