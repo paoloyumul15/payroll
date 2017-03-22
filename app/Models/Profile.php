@@ -2,12 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Profile extends Model
+class Profile extends BaseModel
 {
-    public $timestamps = false;
-
     protected $fillable = [
         'user_id',
         'age',

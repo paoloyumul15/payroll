@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EmployeesPolicy
@@ -17,7 +17,6 @@ class EmployeesPolicy
     {
         return auth()->user()->type === 'Admin';
     }
-
 
     /**
      * Only admin and the profile's owner can view the profile

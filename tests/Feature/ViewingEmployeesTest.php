@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Models\User;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -19,9 +19,9 @@ class ViewingEmployeesTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create(['id' => 1]);
-        $this->admin = factory(User::class)->create(['id' => 2, 'type' => 'Admin']);
-        $this->employee = factory(User::class)->create(['id' => 3,'type' => 'Employee']);
+        $this->user = factory(User::class)->create();
+        $this->admin = factory(User::class)->create(['type' => 'Admin']);
+        $this->employee = factory(User::class)->create(['type' => 'Employee']);
     }
 
     /** @test */

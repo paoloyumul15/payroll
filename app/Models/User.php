@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Profile;
 use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,6 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'company_id',
         'employee_id',
         'first_name',
         'middle_name',
@@ -74,6 +74,8 @@ class User extends Authenticatable
      */
     public static function createProfile(array $attributes)
     {
+        $attributes['company_id'] = companyId();
+
         return DB::transaction(function () use ($attributes) {
             /** @var User $user */
             $user = (new self)->create($attributes);

@@ -16,8 +16,8 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->smallInteger('age')->unsigned();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedSmallInteger('age');
             $table->date('birth_date');
             $table->enum('gender', ['M', 'F']);
             $table->enum('civil_status', ['SI', 'MA', 'SE', 'DI', 'WI']);
@@ -34,7 +34,8 @@ class CreateProfilesTable extends Migration
             $table->string('account_number', 30);
             $table->string('status', 30);
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

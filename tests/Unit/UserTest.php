@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Profile;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -14,9 +14,9 @@ class UserTest extends TestCase
     /** @test */
     public function it_can_generate_a_path_for_each_user()
     {
-        $user = factory(User::class)->create(['id' => 1]);
+        $user = factory(User::class)->create();
 
-        $this->assertEquals('/employees/1', $user->path());
+        $this->assertEquals('/employees/' . $user->id, $user->path());
     }
 
     /** @test */

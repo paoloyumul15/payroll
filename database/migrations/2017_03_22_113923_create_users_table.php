@@ -16,15 +16,20 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('employee_id', 50)->unique();
+            $table->unsignedInteger('company_id');
+            $table->string('employee_id', 50);
             $table->string('first_name', 50);
             $table->string('middle_name', 50);
             $table->string('last_name', 50);
-            $table->string('email', 50)->unique();
+            $table->string('email', 50);
             $table->string('password', 100);
             $table->enum('type', ['Admin', 'Employee']);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->unique(['employee_id', 'email']);
+            $table->foreign('company_id')->references('id')->on('companies')
+                ->onUpdate('cascade');
         });
     }
 
