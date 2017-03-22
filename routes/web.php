@@ -15,14 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-Route::get('/employees', 'UserController@index');
+Route::get('/employees', 'UserController@index')->name('employeesIndex');
 Route::get('/employees/create', 'UserController@create');
 Route::get('/employees/{user}', 'UserController@show');
 Route::get('/employees/{user}/edit', 'UserController@edit');
 Route::post('/employees', 'UserController@store');
 Route::delete('/employees/{user}', 'UserController@destroy');
 Route::patch('/employees/{user}', 'UserController@update');
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('dashboard');

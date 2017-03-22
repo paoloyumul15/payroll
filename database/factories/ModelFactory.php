@@ -1,17 +1,27 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Models\Company;
 use App\Models\Profile;
-use App\User;
+use App\Models\User;
+
+$factory->define(Company::class, function (Faker\Generator $fake) {
+    return [
+        'name' => $fake->company,
+    ];
+});
 
 $factory->define(User::class, function (Faker\Generator $fake) {
     return [
+        'company_id' => function () {
+            return factory(Company::class)->create()->id;
+        },
         'employee_id' => $fake->unique()->numberBetween(10000, 99999),
         'first_name' => $fake->firstName,
         'middle_name' => $fake->lastName,
         'last_name' => $fake->lastName,
         'email' => $fake->unique()->safeEmail,
-        'password' => bcrypt('p@ssw0rd'),
+        'password' => Hash::make('p@ssw0rd'),
         'remember_token' => str_random(10),
         'type' => $fake->randomElement(['Admin', 'Employee']),
         'created_at' => date('Y-m-d H:i:s'),

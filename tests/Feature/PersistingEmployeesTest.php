@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Profile;
-use App\User;
+use App\Models\User;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -20,9 +20,9 @@ class PersistingEmployeesTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create(['id' => 1]);
-        $this->admin = factory(User::class)->create(['id' => 2, 'type' => 'Admin']);
-        $this->employee = factory(User::class)->create(['id' => 3,'type' => 'Employee']);
+        $this->user = factory(User::class)->create();
+        $this->admin = factory(User::class)->create(['type' => 'Admin']);
+        $this->employee = factory(User::class)->create(['type' => 'Employee']);
     }
 
     /**
@@ -53,8 +53,8 @@ class PersistingEmployeesTest extends TestCase
     public function only_admin_can_store_employees_detail()
     {
         $this->signIn($this->admin);
-        $user = factory(User::class)->make(['id' => 4]);
-        $profile = factory(Profile::class)->make(['user_id' => 4]);
+        $user = factory(User::class)->make();
+        $profile = factory(Profile::class)->make();
 
         $response = $this->post('/employees',
             $profile->toArray() +
@@ -62,8 +62,8 @@ class PersistingEmployeesTest extends TestCase
             ['password' => bcrypt('p@ssw0rd')]
         );
 
-        $this->assertDatabaseHas('users', ['id' => 4]);
-        $this->assertDatabaseHas('profiles', ['user_id' => 4]);
+        $this->assertDatabaseHas('users', ['first_name' => $user->first_name]);
+        $this->assertDatabaseHas('profiles', ['sss_number' => $profile->sss_number]);
         $response->assertStatus(302);
     }
 }
