@@ -37,10 +37,11 @@
                 <option value="">Choose</option>
                 @if(isset($user))
                     <option value="M" @if($user->profile->gender == 'M') selected @endif>Male</option>
-                    <option value="F" @if($user->profile->gender == 'M') selected @endif>Female</option>
+                    <option value="F" @if($user->profile->gender == 'F') selected @endif>Female</option>
+                @else
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
                 @endif
-                <option value="M">Male</option>
-                <option value="F">Female</option>
             </select>
         </div>
     </div>

@@ -88,6 +88,8 @@ class UserController extends Controller
 
         $user->update($data);
 
+        $user->profile->update($data);
+
         return redirect('/employees');
     }
 
