@@ -16,12 +16,12 @@ Route::get('/', function () {
 });
 
 Route::get('/employees', 'UserController@index')->name('employeesIndex');
-Route::get('/employees/create', 'UserController@create');
-Route::get('/employees/{user}', 'UserController@show');
-Route::get('/employees/{user}/edit', 'UserController@edit');
-Route::post('/employees', 'UserController@store');
-Route::delete('/employees/{user}', 'UserController@destroy');
-Route::patch('/employees/{user}', 'UserController@update');
+Route::get('/employees/create', 'UserController@create')->name('employeesCreate');
+Route::get('/employees/{user}', 'UserController@show')->name('employeesShow');
+Route::get('/employees/{user}/edit', 'UserController@edit')->name('employeesEdit');
+Route::post('/employees', 'UserController@store')->name('employeesStore');
+Route::delete('/employees/{user}', 'UserController@destroy')->name('employeesDestroy');
+Route::patch('/employees/{user}', 'UserController@update')->name('employeesUpdate');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('dashboard');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('company_id');
+            $table->unsignedInteger('company_id')->nullable();
             $table->string('employee_id', 50);
             $table->string('first_name', 50);
             $table->string('middle_name', 50);
@@ -31,6 +32,16 @@ class CreateUsersTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies')
                 ->onUpdate('cascade');
         });
+
+        User::create([
+            'employee_id' => 'Admin-12345',
+            'first_name' => 'Admin',
+            'middle_name' => '',
+            'last_name' => '',
+            'email' => 'admin@payroll.com',
+            'password' => 'p@ssw0rd',
+            'type' => 'Admin',
+        ]);
     }
 
     /**

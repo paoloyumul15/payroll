@@ -38,7 +38,7 @@ class User extends Authenticatable
     /**
      * Hash the user password when setting it
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setPasswordAttribute($value)
@@ -67,20 +67,28 @@ class User extends Authenticatable
     }
 
     /**
+     * Name of the user
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
      * Create the user with the profile
      *
      * @param array $attributes
      * @return mixed
      */
-    public static function createProfile(array $attributes)
+    public static function persist(array $attributes)
     {
-        $attributes['company_id'] = companyId();
-
         return DB::transaction(function () use ($attributes) {
             /** @var User $user */
             $user = (new self)->create($attributes);
 
-            $user->profile()->create($attributes + ['status' => 'Active']);
+            $user->profile()->create($attributes);
 
             return $user;
         });
