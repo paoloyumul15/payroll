@@ -15,13 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/employees', 'UserController@index')->name('employeesIndex');
-Route::get('/employees/create', 'UserController@create')->name('employeesCreate');
-Route::get('/employees/{user}', 'UserController@show')->name('employeesShow');
-Route::get('/employees/{user}/edit', 'UserController@edit')->name('employeesEdit');
-Route::post('/employees', 'UserController@store')->name('employeesStore');
-Route::delete('/employees/{user}', 'UserController@destroy')->name('employeesDestroy');
-Route::patch('/employees/{user}', 'UserController@update')->name('employeesUpdate');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/employees', 'UserController@index')->name('employeesIndex');
+    Route::get('/employees/create', 'UserController@create')->name('employeesCreate');
+    Route::get('/employees/{user}', 'UserController@show')->name('employeesShow');
+    Route::get('/employees/{user}/edit', 'UserController@edit')->name('employeesEdit');
+    Route::post('/employees', 'UserController@store')->name('employeesStore');
+    Route::delete('/employees/{user}', 'UserController@destroy')->name('employeesDestroy');
+    Route::patch('/employees/{user}', 'UserController@update')->name('employeesUpdate');
+});
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('dashboard');

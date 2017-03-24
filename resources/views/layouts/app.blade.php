@@ -19,19 +19,12 @@
 <body>
     <div id="app">
         @include('layouts.nav')
-        <div class="columns">
-            @if(auth()->user())
-                <div class="column is-2">
-                    @include('layouts.sidebar')
-                </div>
-                <div class="column is-10">
-                    @yield('content')
-                </div>
-            @else
+        <div class="container">
+            <div class="columns is-gapless">
                 <div class="column is-12">
                     @yield('content')
                 </div>
-            @endif
+            </div>
         </div>
     </div>
     <!-- Scripts -->

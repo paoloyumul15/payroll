@@ -46,4 +46,13 @@ class EmployeesPolicy
     {
         return auth()->user()->type === 'Admin';
     }
+
+    /**
+     * Only admins can store new employee in the database
+     * @return bool
+     */
+    public function delete()
+    {
+        return auth()->user()->type === 'Admin';
+    }
 }

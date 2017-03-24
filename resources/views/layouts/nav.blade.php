@@ -14,6 +14,12 @@
     <!-- This "nav-menu" is hidden on mobile -->
     <!-- Add the modifier "is-active" to display it on mobile -->
     <div class="nav-right nav-menu">
+        <a href="{{ route('dashboard') }}" class="nav-item">
+          Dashboard
+        </a>
+        <a href="{{ route('employeesIndex') }}" class="nav-item">
+          Employees
+        </a>
         <span class="nav-item">
             @if(auth()->guest())
                 <a href="{{ route('login') }}" class="button is-primary">
