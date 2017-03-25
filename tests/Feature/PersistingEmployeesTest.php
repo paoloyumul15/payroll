@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Profile;
 use App\Models\User;
-use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 

@@ -33,11 +33,11 @@ class CreateUsersTable extends Migration
         });
 
         DB::table('users')->insert([
-            'company_id' => '1',
+            'company_id' => 1,
             'employee_id' => 'Admin-12345',
             'first_name' => 'Admin',
             'middle_name' => '',
-            'last_name' => '',
+            'last_name' => 'User',
             'email' => 'admin@payroll.com',
             'password' => Hash::make('p@ssw0rd'),
             'type' => 'Admin',

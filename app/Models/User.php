@@ -85,6 +85,8 @@ class User extends Authenticatable
      */
     public static function persist(array $attributes)
     {
+        $attributes['company_id'] = companyId();
+
         return DB::transaction(function () use ($attributes) {
             /** @var User $user */
             $user = (new self)->create($attributes);

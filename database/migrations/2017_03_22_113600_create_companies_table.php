@@ -19,7 +19,10 @@ class CreateCompaniesTable extends Migration
             $table->string('name', 100);
         });
 
-        DB::table('companies')->insert(['name' => 'QSJ']);
+        DB::table('companies')->insert([
+            'id' => 1,
+            'name' => 'QSJ',
+        ]);
     }
 
     /**
