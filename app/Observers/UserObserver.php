@@ -14,8 +14,6 @@ class UserObserver
      */
     public function saving(User $user)
     {
-        if (! $user->company_id) {
-            $user->company_id = companyId();
-        }
+        $user->company_id = companyId();
     }
 }

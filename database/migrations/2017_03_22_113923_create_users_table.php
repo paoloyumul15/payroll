@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -33,15 +32,17 @@ class CreateUsersTable extends Migration
                 ->onUpdate('cascade');
         });
 
-        User::create([
+        DB::table('users')->insert([
             'company_id' => '1',
             'employee_id' => 'Admin-12345',
             'first_name' => 'Admin',
             'middle_name' => '',
             'last_name' => '',
             'email' => 'admin@payroll.com',
-            'password' => 'p@ssw0rd',
+            'password' => Hash::make('p@ssw0rd'),
             'type' => 'Admin',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
     }
 

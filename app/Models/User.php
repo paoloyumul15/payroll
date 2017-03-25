@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -92,5 +93,16 @@ class User extends Authenticatable
 
             return $user;
         });
+    }
+
+    /**
+     * Get the users from the same company as the signed-in user
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeSameCompany(Builder $query)
+    {
+        return $query->where('company_id', companyId());
     }
 }

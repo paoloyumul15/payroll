@@ -13,7 +13,9 @@ class PersistingEmployeesTest extends TestCase
     use DatabaseTransactions;
 
     protected $user;
+
     protected $admin;
+
     protected $employee;
 
     public function setUp()
@@ -21,21 +23,20 @@ class PersistingEmployeesTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+
         $this->admin = factory(User::class)->create(['type' => 'Admin']);
+
         $this->employee = factory(User::class)->create(['type' => 'Employee']);
     }
 
-    /**
-     * @expectedException Exception
-     * @test
-     */
+    /** @test */
     public function employees_are_not_allowed_to_see_the_create_form_for_employees()
     {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
         $this->signIn($this->employee);
 
-        $response = $this->get('/employees/create');
-
-        $response->assertStatus(403);
+        $this->get('/employees/create');
     }
 
     /** * @test */

@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $this->authorize('index', User::class);
 
-        $users = User::all();
+        $users = User::sameCompany()->get();
 
         return view('users.index', compact('users'));
     }
@@ -45,7 +45,7 @@ class UserController extends Controller
 
         User::persist($request->all());
 
-        return redirect()->route('employeesIndex');
+        return redirect('/employees');
     }
 
     /**
@@ -91,7 +91,7 @@ class UserController extends Controller
 
         $user->profile->update($data);
 
-        return redirect()->route('employeesIndex');
+        return redirect('/employees');
     }
 
     /**
