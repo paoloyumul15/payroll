@@ -52,6 +52,30 @@ class EmployeesPolicy
     }
 
     /**
+     * Only admins can view the edit form for employees
+     *
+     * @param User|null $user
+     * @param User $employee
+     * @return bool
+     */
+    public function edit(User $user = null, User $employee)
+    {
+        return auth()->user()->type === 'Admin' && sameCompanyAs($employee);
+    }
+
+    /**
+     * Only admins can update existing employee in the database
+     *
+     * @param User|null $user
+     * @param User $employee
+     * @return bool
+     */
+    public function update(User $user = null, User $employee)
+    {
+        return auth()->user()->type === 'Admin' && sameCompanyAs($employee);
+    }
+
+    /**
      * Only admins of the company can store new employee in the database
      *
      * @param User $user

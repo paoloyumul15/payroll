@@ -71,6 +71,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('edit', $user);
+
         $user = $user->load('profile');
 
         return view('users.edit', compact('user'));
@@ -85,13 +87,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $data = $request->all() + ['company_id' => companyId()];
 
         $user->update($data);
 
-        $user->profile->update($data);
+        if ($user->hasProfile()) {
+            $user->profile->update($data);
+        }
 
-        return redirect('/employees');
+        return redirect()->route('employeesIndex');
     }
 
     /**

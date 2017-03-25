@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/employees', 'UserController@index')->name('employeesIndex');
@@ -26,4 +28,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/employees/{user}', 'UserController@update')->name('employeesUpdate');
 });
 
-Auth::routes();

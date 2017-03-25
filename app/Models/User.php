@@ -107,4 +107,14 @@ class User extends Authenticatable
     {
         return $query->where('company_id', companyId());
     }
+
+    /**
+     * Check if the user has profile
+     *
+     * @return bool
+     */
+    public function hasProfile()
+    {
+        return !! $this->profile;
+    }
 }
