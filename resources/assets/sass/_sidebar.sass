@@ -1,26 +1,29 @@
 @import "_variables"
 
 aside.sidebar
-    background: $dark-blue
+    background: $main-gray
     height: calc(100% - 60px)
     left: 0
     padding: 12px
     position: fixed
     top: 60px
-    width: 190px
-
-    .menu-label,
-    .menu-list a
-        color: $white
-
+    width: 200px
 
     .menu-list
         li
-            &:hover
-                background: lighten($dark-blue, 20%)
+            margin-bottom: 5px
+            margin-top: 5px
 
         a
-            font-size: 14px
+            font-size: 13px
+
+            span
+                color: $light-gray
 
             &:hover
-                background: lighten($dark-blue, 20%)
+                background: darken($main-gray, 10%)
+                color: $black
+
+    .menu-label,
+        color: $black
+        font-size: 10px

@@ -17,15 +17,20 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        @include('layouts.nav')
-        <div class="container">
-            <div class="columns is-gapless">
-                <div class="column is-12">
-                    @yield('content')
+    <div id="app" @if(! auth()->user()) style="padding-top: 70px" @endif>
+        @if(auth()->user())
+            @include('layouts.nav')
+            @include('layouts.sidebar')
+            @include('layouts.main-content')
+        @else
+            <div class="container">
+                <div class="columns is-gapless">
+                    <div class="column is-12">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

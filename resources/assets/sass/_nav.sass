@@ -1,9 +1,22 @@
 @import "_variables"
 
 nav.navigation
-    border-bottom: 1px solid #eee
+    background: $main-gray
+    border-bottom: 1px solid $main-gray
     height: 60px
     left: 0
     position: fixed
     top: 0
     width: 100%
+
+    .nav-item,
+    .nav-item a,
+        color: $black
+        font-size: 12px
+
+    .nav-item .button
+        color: $white
+
+    .nav-brand
+        font-size: 19px
+
