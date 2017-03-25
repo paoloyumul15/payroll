@@ -9,11 +9,13 @@ class UserObserver
     /**
      * Listen to the User saving event.
      *
-     * @param  User  $user
+     * @param  User $user
      * @return void
      */
     public function saving(User $user)
     {
-        $user->company_id = companyId();
+        if (! $user->company_id) {
+            $user->company_id = companyId();
+        }
     }
 }

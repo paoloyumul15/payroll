@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
         });
 
         User::create([
+            'company_id' => '1',
             'employee_id' => 'Admin-12345',
             'first_name' => 'Admin',
             'middle_name' => '',

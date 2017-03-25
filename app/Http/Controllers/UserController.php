@@ -45,7 +45,7 @@ class UserController extends Controller
 
         User::persist($request->all());
 
-        return redirect('/employees');
+        return redirect()->route('employeesIndex');
     }
 
     /**
@@ -57,6 +57,8 @@ class UserController extends Controller
     public function show(User $user)
     {
         $this->authorize('show', $user);
+
+        $user->load('profile');
 
         return view('users.show', compact('user'));
     }
@@ -89,7 +91,7 @@ class UserController extends Controller
 
         $user->profile->update($data);
 
-        return redirect('/employees');
+        return redirect()->route('employeesIndex');
     }
 
     /**

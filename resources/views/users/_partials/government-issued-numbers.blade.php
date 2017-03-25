@@ -1,4 +1,4 @@
-<h5 class="subtitle is-6">ID's, Government Issued Numbers</h5>
+<h5 class="subtitle is-6">ID's / Government Issued Numbers</h5>
 <div class="box">
     <div class="columns is-multiline">
         <div class="column is-3">
