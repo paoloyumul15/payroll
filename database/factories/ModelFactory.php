@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Models\Company;
+use App\Models\PayPeriod;
 use App\Models\Profile;
 use App\Models\User;
 
@@ -50,5 +51,19 @@ $factory->define(Profile::class, function (Faker\Generator $fake) {
         'tin_number' => $fake->numberBetween(1000000, 9999999),
         'account_number' => $fake->numberBetween(1000000, 9999999),
         'status' => 'Active',
+    ];
+});
+
+$factory->define(PayPeriod::class, function (Faker\Generator $fake) {
+    $now = carbon($fake->date('Y-m-d H:i:s'));
+    $fifteenDays = $now->addDays(15);
+
+    return [
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
+        },
+        'start_date' => $now,
+        'end_date' => $fifteenDays,
+        'pay_out_date' => $fifteenDays,
     ];
 });

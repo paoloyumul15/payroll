@@ -4,7 +4,7 @@
     </p>
     <ul class="menu-list">
         <li>
-            <a href="{{ route('dashboard') }}">
+            <a href="{{ route('dashboard') }}" @if(request()->is('dashboard*')) class="active" @endif>
                 <span class="icon is-small">
                     <i class="fa fa-dashboard"></i>
                 </span>
@@ -12,7 +12,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('employeesIndex') }}">
+            <a href="{{ route('employeesIndex') }}" @if(request()->is('employees*')) class="active" @endif>
                 <span class="icon is-small">
                     <i class="fa fa-users"></i>
                 </span>
@@ -25,11 +25,19 @@
     </p>
     <ul class="menu-list">
         <li>
-            <a>
+            <a href="#">
                 <span class="icon is-small">
                     <i class="fa fa-list"></i>
                 </span>
                 Payslips
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('payPeriodsIndex') }}" @if(request()->is('pay-periods*')) class="active" @endif>
+                <span class="icon is-small">
+                    <i class="fa fa-cut"></i>
+                </span>
+                Cut-Offs/Pay Periods
             </a>
         </li>
     </ul>
