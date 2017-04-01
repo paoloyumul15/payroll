@@ -33,6 +33,7 @@ class CreateProfilesTable extends Migration
             $table->string('tin_number', 30);
             $table->string('account_number', 30);
             $table->string('status', 30);
+            $table->decimal('rate', 6, 2)->default(0);
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');

@@ -11,8 +11,8 @@ const { mix } = require('laravel-mix');
  |
  */
 
-mix.sass('resources/assets/sass/app.sass', 'public/css');
-mix.scripts([
-    'resources/assets/js/libraries/axios.min.js',
-    'resources/assets/js/libraries/vue.js',
-], 'public/js/vendor.js');
+mix.sass('resources/assets/sass/app.sass', 'public/css').disableNotifications();
+// mix.scripts([
+//     'resources/assets/js/libraries/axios.min.js',
+//     'resources/assets/js/libraries/vue.js',
+// ], 'public/js/vendor.js');

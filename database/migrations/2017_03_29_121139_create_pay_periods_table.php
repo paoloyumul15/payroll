@@ -14,6 +14,8 @@ class CreatePayPeriodsTable extends Migration
     public function up()
     {
         Schema::create('pay_periods', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->unsignedInteger('company_id');
             $table->dateTime('start_date');

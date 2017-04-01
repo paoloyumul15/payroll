@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Profile;
+use App\Models\Schedule;
 use App\Models\User;
 use Hash;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -49,7 +50,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetches_all_users_that_are_of_the_same_company_as_the_signed_in_admin()
+    public function it_can_fetch_all_users_that_are_of_the_same_company_as_the_signed_in_admin()
     {
         $this->signIn($admin = create(User::class, ['type' => 'Admin']));
         create(User::class, ['company_id' => $admin->company_id]);
@@ -58,5 +59,16 @@ class UserTest extends TestCase
         $users = User::sameCompany()->get();
 
         $this->assertEquals(2, $users->count());
+    }
+
+    /** @test */
+    public function it_has_a_schedule()
+    {
+        $this->signIn($user = create(User::class));
+        create(Schedule::class, ['user_id' => $user->id]);
+
+        $schedule = $user->schedule;
+
+        $this->assertInstanceOf(Schedule::class, $schedule);
     }
 }

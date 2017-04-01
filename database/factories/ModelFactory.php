@@ -1,9 +1,11 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Models\Attendance;
 use App\Models\Company;
 use App\Models\PayPeriod;
 use App\Models\Profile;
+use App\Models\Schedule;
 use App\Models\User;
 
 $factory->define(Company::class, function (Faker\Generator $fake) {
@@ -51,6 +53,7 @@ $factory->define(Profile::class, function (Faker\Generator $fake) {
         'tin_number' => $fake->numberBetween(1000000, 9999999),
         'account_number' => $fake->numberBetween(1000000, 9999999),
         'status' => 'Active',
+        'rate' => 0,
     ];
 });
 
@@ -65,5 +68,32 @@ $factory->define(PayPeriod::class, function (Faker\Generator $fake) {
         'start_date' => $now,
         'end_date' => $fifteenDays,
         'pay_out_date' => $fifteenDays,
+    ];
+});
+
+$factory->define(Schedule::class, function (Faker\Generator $fake) {
+    return [
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
+        },
+        'monday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'tuesday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'wednesday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'thursday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'friday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'saturday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'sunday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+    ];
+});
+
+$factory->define(Attendance::class, function (Faker\Generator $fake) {
+    $time_in = carbon(date('Y-m-d'))->addHours(8);
+
+    return [
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
+        },
+        'time_in' => $time_in,
+        'time_out' => $time_in->addHours(10),
     ];
 });

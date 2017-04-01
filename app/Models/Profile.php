@@ -22,5 +22,6 @@ class Profile extends BaseModel
         'tin_number',
         'account_number',
         'status',
+        'rate',
     ];
 }
