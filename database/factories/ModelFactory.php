@@ -62,8 +62,8 @@ $factory->define(PayPeriod::class, function (Faker\Generator $fake) {
     $fifteenDays = $now->addDays(15);
 
     return [
-        'user_id' => function () {
-            return factory(User::class)->create()->id;
+        'company_id' => function () {
+            return factory(Company::class)->create()->id;
         },
         'start_date' => $now,
         'end_date' => $fifteenDays,

@@ -27,6 +27,16 @@ class Attendance extends BaseModel
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function scopeFrom($query, $date)
+    {
+        return $query->where('time_in', '>=', $date);
+    }
+
+    public function scopeTo($query, $date)
+    {
+        return $query->where('time_out', '<=', $date);
+    }
+
     /**
      * Late in minutes
      *
