@@ -150,9 +150,11 @@ class User extends Authenticatable
      */
     public function regularHours($start_date, $end_date)
     {
-        $attendances = Attendance::from($start_date)->to($end_date)->get();
+        $attendances = Attendance::where('user_id', $this->id)
+            ->from($start_date)
+            ->to($end_date)
+            ->get();
 
-        var_dump($end_date);
         /** @var Collection $attendances */
         return $attendances->reduce(function($carry, $attendance) {
             /** @var Attendance $attendance */
