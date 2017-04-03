@@ -62,4 +62,40 @@ trait Payrollable
                 return $carry + $attendance->overTime();
             }, 0) / 60;
     }
+
+    public function regularHolidayHours($start_date, $end_date)
+    {
+        $attendances = Attendance::where('user_id', $this->id)
+            ->from($start_date)
+            ->to($end_date)
+            ->get();
+
+        /** @var Collection $attendances */
+        return $attendances->reduce(function ($carry, $attendance) {
+                /** @var Attendance $attendance */
+                if ($attendance->isRegularHoliday()) {
+                    return $carry + $attendance->regularHours();
+                }
+
+                return 0;
+            }, 0) / 60;
+    }
+
+    public function specialHolidayHours($start_date, $end_date)
+    {
+        $attendances = Attendance::where('user_id', $this->id)
+            ->from($start_date)
+            ->to($end_date)
+            ->get();
+
+        /** @var Collection $attendances */
+        return $attendances->reduce(function ($carry, $attendance) {
+                /** @var Attendance $attendance */
+                if ($attendance->isSpecialHoliday()) {
+                    return $carry + $attendance->regularHours();
+                }
+
+                return 0;
+            }, 0) / 60;
+    }
 }

@@ -70,7 +70,7 @@
                 <p class="control">
                     <select class="input is-small" name="civil_status" id="civil_status">
                         <option value="">Choose</option>
-                        @foreach (config('qsjpayroll.maritalStatuses') as $code => $civilStatus)
+                        @foreach (config('esweldo.maritalStatuses') as $code => $civilStatus)
                             @if(isset($user))
                                 <option value="{{ $code }}" @if($user->profile->civil_status == $code) selected @endif>{{ $civilStatus }}</option>
                             @else

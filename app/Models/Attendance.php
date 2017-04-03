@@ -142,4 +142,26 @@ class Attendance extends BaseModel
             $this->date .' '. $this->user->schedule->$day['end']
         );
     }
+
+    public function isRegularHoliday()
+    {
+        $holiday = Holiday::regular()->where('date', $this->time_in->format('Y-m-d'))->first();
+
+        if (! $holiday) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function isSpecialHoliday()
+    {
+        $holiday = Holiday::special()->where('date', $this->time_in->format('Y-m-d'))->first();
+
+        if (! $holiday) {
+            return false;
+        }
+
+        return true;
+    }
 }

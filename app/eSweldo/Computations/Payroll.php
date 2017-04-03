@@ -18,6 +18,8 @@ class Payroll
     protected $computations = [
         'basicPay' => BasicPay::class,
         'overTimePay' => OverTimePay::class,
+        'regularHolidayPay' => RegularHolidayPay::class,
+        'specialHolidayPay' => SpecialHolidayPay::class,
     ];
 
     public function __construct(User $user)

@@ -3,6 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Models\Attendance;
 use App\Models\Company;
+use App\Models\Holiday;
+use App\Models\Leave;
 use App\Models\PayPeriod;
 use App\Models\Profile;
 use App\Models\Schedule;
@@ -95,5 +97,28 @@ $factory->define(Attendance::class, function (Faker\Generator $fake) {
         },
         'time_in' => $time_in,
         'time_out' => $time_in->addHours(10),
+    ];
+});
+
+$factory->define(Leave::class, function (Faker\Generator $fake) {
+    $startDate = carbon(date('Y-m-d'))->addHours(8);
+
+    return [
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
+        },
+        'start_date' => $startDate,
+        'end_date' => $startDate->addDays(2),
+        'status' => 'Approved',
+        'created_at' => date('Y-m-d H:i:s'),
+    ];
+});
+
+
+$factory->define(Holiday::class, function (Faker\Generator $fake) {
+    return [
+        'date' => '2017-01-01',
+        'name' => 'New Year',
+        'type' => 'RH',
     ];
 });

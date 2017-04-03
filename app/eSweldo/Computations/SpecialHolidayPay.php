@@ -2,9 +2,9 @@
 
 namespace App\eSweldo\Computations;
 
-class OverTimePay extends Computation
+
+class SpecialHolidayPay extends Computation
 {
-    const RATE_MULTIPLIER = 1.25;
 
     /**
      * Specify the type of the computation: 'earning'|'deduction'
@@ -23,6 +23,6 @@ class OverTimePay extends Computation
      */
     public function compute()
     {
-        return (float) ($this->user->profile->rate * $this->user->overTimeHours($this->startDate, $this->endDate)) * self::RATE_MULTIPLIER;
+        return ($this->user->profile->rate * 1.3) * $this->user->specialHolidayHours($this->startDate, $this->endDate);
     }
 }
