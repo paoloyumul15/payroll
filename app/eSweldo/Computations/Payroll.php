@@ -17,6 +17,7 @@ class Payroll
 
     protected $computations = [
         'basicPay' => BasicPay::class,
+        'overTimePay' => OverTimePay::class,
     ];
 
     public function __construct(User $user)
@@ -28,9 +29,9 @@ class Payroll
     {
         /** @var Computation $computation */
         foreach ($this->computations as $tag => $computation) {
-            $computation = new $computation($this->user);
+            $computation = new $computation($this->user, $payPeriod);
 
-            $this->$tag = $computation->compute($payPeriod);
+            $this->$tag = $computation->compute();
         }
 
         return $this;

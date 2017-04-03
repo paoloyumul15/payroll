@@ -9,9 +9,17 @@ abstract class Computation
 {
     protected $user;
 
-    public function __construct(User $user)
+    protected $startDate;
+
+    protected $endDate;
+
+    public function __construct(User $user, PayPeriod $payPeriod)
     {
         $this->user = $user;
+
+        $this->startDate = $payPeriod->start_date->format('Y-m-d H:i:s');
+
+        $this->endDate = $payPeriod->end_date->format('Y-m-d H:i:s');
     }
 
     /**
@@ -22,10 +30,9 @@ abstract class Computation
     public abstract function type();
 
     /**
-     * Compute based on pay period
+     * Computations of the earning or deduction
      *
-     * @param PayPeriod $payPeriod
      * @return mixed
      */
-    public abstract function compute(PayPeriod $payPeriod);
+    public abstract function compute();
 }

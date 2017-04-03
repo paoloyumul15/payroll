@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use App\eSweldo\Computations\Payroll;
+use App\eSweldo\Computations\Payrollable;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Collection;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Payrollable;
 
     /**
      * The attributes that are mass assignable.
@@ -128,37 +127,5 @@ class User extends Authenticatable
     public function hasProfile()
     {
         return ! ! $this->profile;
-    }
-
-    /**
-     * Payroll of the user from a pay period
-     *
-     * @param PayPeriod $payPeriod
-     * @return Payroll
-     */
-    public function payroll(PayPeriod $payPeriod)
-    {
-        return (new Payroll($this))->handle($payPeriod);
-    }
-
-    /**
-     * Regular working hours from a certain period
-     *
-     * @param $start_date
-     * @param $end_date
-     * @return float|int
-     */
-    public function regularHours($start_date, $end_date)
-    {
-        $attendances = Attendance::where('user_id', $this->id)
-            ->from($start_date)
-            ->to($end_date)
-            ->get();
-
-        /** @var Collection $attendances */
-        return $attendances->reduce(function($carry, $attendance) {
-            /** @var Attendance $attendance */
-            return $carry + $attendance->regularHours();
-        }, 0) / 60;
     }
 }
