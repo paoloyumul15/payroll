@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Schedule;
 use App\Models\User;
 use App\Policies\EmployeesPolicy;
+use App\Policies\SchedulePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => EmployeesPolicy::class,
+        Schedule::class => SchedulePolicy::class,
     ];
 
     /**
@@ -25,7 +28,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
     }
 }

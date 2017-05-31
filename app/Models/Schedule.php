@@ -4,6 +4,18 @@ namespace App\Models;
 
 class Schedule extends BaseModel
 {
+    protected $fillable = [
+        'user_id',
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
+        'default',
+    ];
+
     protected $casts = [
         'monday' => 'array',
         'tuesday' => 'array',

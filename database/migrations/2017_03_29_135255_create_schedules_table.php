@@ -25,6 +25,7 @@ class CreateSchedulesTable extends Migration
             $table->string('friday', 50)->nullable();
             $table->string('saturday', 50)->nullable();
             $table->string('sunday', 50)->nullable();
+            $table->boolean('default');
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade');

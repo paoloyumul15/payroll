@@ -85,6 +85,7 @@ $factory->define(Schedule::class, function (Faker\Generator $fake) {
         'friday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'saturday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'sunday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'default' => 1,
     ];
 });
 
@@ -94,6 +95,9 @@ $factory->define(Attendance::class, function (Faker\Generator $fake) {
     return [
         'user_id' => function () {
             return factory(User::class)->create()->id;
+        },
+        'schedule_id' => function () {
+            return factory(Schedule::class)->create()->id;
         },
         'time_in' => $time_in,
         'time_out' => $time_in->addHours(10),

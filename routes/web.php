@@ -30,4 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/pay-periods', 'PayPeriodController@index')->name('payPeriodsIndex');
     Route::post('/pay-periods', 'PayPeriodController@store')->name('payPeriodsStore');
+
+    Route::get('/schedules', 'ScheduleController@index')->name('schedulesIndex');
+    Route::get('/schedules/create', 'ScheduleController@index')->name('schedulesCreate');
+    Route::get('/schedules/{schedule}/edit', 'ScheduleController@edit')->name('schedulesEdit');
+    Route::patch('/schedules/{schedule}', 'ScheduleController@update')->name('schedulesUpdate');
+    Route::post('/schedules', 'ScheduleController@store')->name('schedulesPost');
 });

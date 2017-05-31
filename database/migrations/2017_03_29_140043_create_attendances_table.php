@@ -18,10 +18,14 @@ class CreateAttendancesTable extends Migration
 
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
-            $table->dateTime('time_in');
-            $table->dateTime('time_out');
+            $table->unsignedInteger('schedule_id')->nullable()->default(null);
+            $table->date('date')
+            $table->time('time_in');
+            $table->time('time_out');
 
             $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade');
+            $table->foreign('schedule_id')->references('id')->on('schedules')
                 ->onUpdate('cascade');
         });
     }

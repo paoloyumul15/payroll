@@ -62,11 +62,11 @@
             </a>
         </li>
         <li>
-            <a>
+            <a href="{{ route('schedulesIndex') }}">
                 <span class="icon is-small">
                     <i class="fa fa-calendar"></i>
                 </span>
-                Daily Time Record
+                Schedules
             </a>
         </li>
     </ul>
