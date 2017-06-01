@@ -60,15 +60,4 @@ class UserTest extends TestCase
 
         $this->assertEquals(2, $users->count());
     }
-
-    /** @test */
-    public function it_has_a_schedule()
-    {
-        $this->signIn($user = create(User::class));
-        create(Schedule::class, ['user_id' => $user->id]);
-
-        $schedule = $user->schedule;
-
-        $this->assertInstanceOf(Schedule::class, $schedule);
-    }
 }

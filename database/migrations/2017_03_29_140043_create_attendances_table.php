@@ -19,7 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('schedule_id')->nullable()->default(null);
-            $table->date('date')
+            $table->date('date');
             $table->time('time_in');
             $table->time('time_out');
 

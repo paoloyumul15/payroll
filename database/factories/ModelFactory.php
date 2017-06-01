@@ -21,6 +21,9 @@ $factory->define(User::class, function (Faker\Generator $fake) {
         'company_id' => function () {
             return factory(Company::class)->create()->id;
         },
+        'schedule_id' => function () {
+            return factory(Schedule::class)->create()->id;
+        },
         'employee_id' => $fake->unique()->numberBetween(10000, 99999),
         'first_name' => $fake->firstName,
         'middle_name' => $fake->lastName,
@@ -75,9 +78,6 @@ $factory->define(PayPeriod::class, function (Faker\Generator $fake) {
 
 $factory->define(Schedule::class, function (Faker\Generator $fake) {
     return [
-        'user_id' => function () {
-            return factory(User::class)->create()->id;
-        },
         'monday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'tuesday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'wednesday' => ['start' => '8:00:00', 'end' => '18:00:00'],
@@ -85,13 +85,10 @@ $factory->define(Schedule::class, function (Faker\Generator $fake) {
         'friday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'saturday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'sunday' => ['start' => '8:00:00', 'end' => '18:00:00'],
-        'default' => 1,
     ];
 });
 
 $factory->define(Attendance::class, function (Faker\Generator $fake) {
-    $time_in = carbon(date('Y-m-d'))->addHours(8);
-
     return [
         'user_id' => function () {
             return factory(User::class)->create()->id;
@@ -99,8 +96,9 @@ $factory->define(Attendance::class, function (Faker\Generator $fake) {
         'schedule_id' => function () {
             return factory(Schedule::class)->create()->id;
         },
-        'time_in' => $time_in,
-        'time_out' => $time_in->addHours(10),
+        'date' => carbon(date('Y-m-d')),
+        'time_in' => '08:00:00',
+        'time_out' => '18:00:00',
     ];
 });
 

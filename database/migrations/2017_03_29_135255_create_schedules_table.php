@@ -17,7 +17,6 @@ class CreateSchedulesTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->unsignedInteger('user_id');
             $table->string('monday', 50)->nullable();
             $table->string('tuesday', 50)->nullable();
             $table->string('wednesday', 50)->nullable();
@@ -25,10 +24,6 @@ class CreateSchedulesTable extends Migration
             $table->string('friday', 50)->nullable();
             $table->string('saturday', 50)->nullable();
             $table->string('sunday', 50)->nullable();
-            $table->boolean('default');
-
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade');
         });
     }
 
