@@ -69,16 +69,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's schedule
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function schedule()
-    {
-        return $this->hasOne(Schedule::class, 'user_id');
-    }
-
-    /**
      * Name of the user
      *
      * @return string

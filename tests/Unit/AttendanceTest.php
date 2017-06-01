@@ -22,18 +22,22 @@ class AttendanceTest extends TestCase
 
         $user = create(User::class);
 
-        create(Schedule::class, ['user_id' => $user->id]);
+        $schedule = create(Schedule::class);
 
         $this->attendanceWithOverTime = create(Attendance::class, [
             'user_id' => $user->id,
-            'time_in' => '2018-04-01 09:56:00',
-            'time_out' => '2018-04-01 21:47:00',
+            'schedule_id' => $schedule->id,
+            'date' => date('Y-m-d'),
+            'time_in' => '09:56:00',
+            'time_out' => '21:47:00',
         ]);
 
         $this->attendanceWithUnderTime = create(Attendance::class, [
             'user_id' => $user->id,
-            'time_in' => '2018-04-01 09:56:00',
-            'time_out' => '2018-04-01 17:43:00',
+            'schedule_id' => $schedule->id,
+            'date' => carbon(date('Y-m-d'))->addDay(),
+            'time_in' => '09:56:00',
+            'time_out' => '17:43:00',
         ]);
     }
 
