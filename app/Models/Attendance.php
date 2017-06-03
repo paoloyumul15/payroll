@@ -4,11 +4,7 @@ namespace App\Models;
 
 class Attendance extends BaseModel
 {
-    protected $day;
-
-    protected $schedule_start;
-
-    protected $schedule_end;
+    protected $appends = ['day'];
 
     public function user()
     {
@@ -30,6 +26,11 @@ class Attendance extends BaseModel
         return $query->where('time_out', '<=', $date);
     }
 
+    public function getDayAttribute()
+    {
+        return strtolower(carbon($this->date)->format('l'));
+    }
+
     public function getTimeInAttribute($value)
     {
         return strtotime($value);
@@ -40,6 +41,16 @@ class Attendance extends BaseModel
         return strtotime($value);
     }
 
+    public function getScheduleStartAttribute()
+    {
+        return strtotime($this->schedule->{$this->day}['start']);
+    }
+
+    public function getScheduleEndAttribute()
+    {
+        return strtotime($this->schedule->{$this->day}['end']);
+    }
+
     /**
      * Late in minutes
      *
@@ -47,9 +58,7 @@ class Attendance extends BaseModel
      */
     public function late()
     {
-        $day = $this->day();
-        $schedule = strtotime($this->schedule->$day['start']);
-        $lateInMinutes = round(($this->time_in - $schedule) / 60);
+        $lateInMinutes = round(($this->time_in - $this->schedule_start) / 60);
 
         if ($lateInMinutes <= 0) {
             return 0;
@@ -65,9 +74,7 @@ class Attendance extends BaseModel
      */
     public function overTime()
     {
-        $day = $this->day();
-        $schedule = strtotime($this->schedule->$day['end']);
-        $overTimeInMinutes = round(($this->time_out - $schedule) / 60);
+        $overTimeInMinutes = round(($this->time_out - $this->schedule_end) / 60);
 
         if ($overTimeInMinutes <= 0) {
             return 0;
@@ -83,14 +90,11 @@ class Attendance extends BaseModel
      */
     public function regularHours()
     {
-        $day = $this->day();
-        $schedule = strtotime($this->schedule->$day['end']);
-
-        if ($this->time_out < $schedule) {
+        if ($this->time_out < $this->schedule_end) {
             return abs(($this->time_in - $this->time_out) / 60);
         }
 
-        return abs(($this->time_in - $schedule) / 60);
+        return abs(($this->time_in - $this->schedule_end) / 60);
     }
 
     /**
@@ -100,26 +104,13 @@ class Attendance extends BaseModel
      */
     public function underTime()
     {
-        $day = $this->day();
-        $schedule = strtotime($this->schedule->$day['end']);
-        $underTimeInMinutes = round(($schedule - $this->time_out) / 60);
+        $underTimeInMinutes = round(($this->schedule_end - $this->time_out) / 60);
 
         if ($underTimeInMinutes <= 0) {
             return 0;
         }
 
         return $underTimeInMinutes;
-    }
-
-    /**
-     * Get the day of the attendance record
-     * 'sunday'|'monday'|'tuesday'|'wednesday'|'thursday'|'friday'|'saturday'
-     *
-     * @return string
-     */
-    public function day()
-    {
-        return strtolower(carbon($this->date)->format('l'));
     }
 
     public function isRegularHoliday()
