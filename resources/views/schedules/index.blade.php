@@ -2,7 +2,9 @@
 
 @section('content')
     <a href="{{ route('schedulesCreate') }}">Add new Schedule</a>
-    @foreach($schedules as $schedule)
-        {{ $schedule->id }}
-    @endforeach
+    <ul>
+        @foreach($schedules as $schedule)
+            <li>{{ $schedule->id }}</li>
+        @endforeach
+    </ul>
 @endsection
