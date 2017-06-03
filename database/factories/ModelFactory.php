@@ -85,6 +85,7 @@ $factory->define(Schedule::class, function (Faker\Generator $fake) {
         'friday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'saturday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'sunday' => ['start' => '8:00:00', 'end' => '18:00:00'],
+        'is_default' => 0,
     ];
 });
 
