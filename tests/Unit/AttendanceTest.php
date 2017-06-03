@@ -20,9 +20,9 @@ class AttendanceTest extends TestCase
     {
         parent::setUp();
 
-        $user = create(User::class);
+        $user = $this->signIn(create(User::class));
 
-        $schedule = create(Schedule::class);
+        $schedule = create(Schedule::class, ['company_id' => $user->company_id]);
 
         $this->attendanceWithOverTime = create(Attendance::class, [
             'user_id' => $user->id,

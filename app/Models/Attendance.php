@@ -8,12 +8,12 @@ class Attendance extends BaseModel
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function schedule()
     {
-        return $this->belongsTo(Schedule::class, 'schedule_id');
+        return $this->belongsTo(Schedule::class);
     }
 
     public function scopeFrom($query, $date)

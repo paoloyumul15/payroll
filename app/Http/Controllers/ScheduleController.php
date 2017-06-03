@@ -13,6 +13,13 @@ class ScheduleController extends Controller
         return view('schedules.index', compact('schedules'));
     }
 
+    public function create()
+    {
+        $this->authorize('create', Schedule::class);
+
+        return view('schedules.create');
+    }
+
     public function store()
     {
         $this->authorize('store', Schedule::class);
