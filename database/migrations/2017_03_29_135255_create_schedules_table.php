@@ -24,6 +24,7 @@ class CreateSchedulesTable extends Migration
             $table->string('friday', 50)->nullable();
             $table->string('saturday', 50)->nullable();
             $table->string('sunday', 50)->nullable();
+            $table->boolean('is_default')->default(0);
         });
     }
 

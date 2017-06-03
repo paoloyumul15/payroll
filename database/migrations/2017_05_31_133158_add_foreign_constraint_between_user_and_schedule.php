@@ -27,7 +27,7 @@ class AddForeignConstraintBetweenUserAndSchedule extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex(['schedule_id']);
+            $table->dropForeign(['schedule_id']);
         });
     }
 }

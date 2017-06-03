@@ -6,7 +6,6 @@ use App\Models\Schedule;
 use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use function var_dump;
 
 class PersistingScheduleTest extends TestCase
 {
@@ -39,7 +38,7 @@ class PersistingScheduleTest extends TestCase
         $response = $this->post('/schedules', $schedule);
 
         $response->assertStatus(302);
-        $this->assertEquals(1, \App\Models\Schedule::count());
+        $this->assertEquals(1, Schedule::count());
     }
 
     public function an_admin_can_assign_a_schedule_to_an_employee()
