@@ -17,14 +17,18 @@ class CreateSchedulesTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->string('monday', 50)->nullable();
-            $table->string('tuesday', 50)->nullable();
-            $table->string('wednesday', 50)->nullable();
-            $table->string('thursday', 50)->nullable();
-            $table->string('friday', 50)->nullable();
-            $table->string('saturday', 50)->nullable();
-            $table->string('sunday', 50)->nullable();
+            $table->unsignedInteger('company_id');
+            $table->json('monday')->nullable();
+            $table->json('tuesday')->nullable();
+            $table->json('wednesday')->nullable();
+            $table->json('thursday')->nullable();
+            $table->json('friday')->nullable();
+            $table->json('saturday')->nullable();
+            $table->json('sunday')->nullable();
             $table->boolean('is_default')->default(0);
+
+            $table->foreign('company_id')->references('id')->on('companies')
+                ->onUpdate('cascade');
         });
     }
 

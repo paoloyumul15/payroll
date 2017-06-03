@@ -12,16 +12,35 @@ class PersistingScheduleTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
+    public function an_admin_user_can_see_the_form_to_create_a_schedule()
+    {
+        $user = $this->signIn(create(User::class, ['type' => 'Admin']));
+
+        $response = $this->get('/schedules/create');
+
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function an_employee_user_cannot_see_the_form_to_create_a_schedule()
+    {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $user = $this->signIn(create(User::class, ['type' => 'Employee']));
+
+        $response = $this->get('/schedules/create');
+    }
+
+    /** @test */
     public function an_employee_user_cannot_add_a_schedule()
     {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
 
         $user = $this->signIn(create(User::class, ['type' => 'Employee']));
-        $schedule = make(Schedule::class)->toArray();
+        $schedule = make(Schedule::class, ['company_id' => $user->company_id])->toArray();
 
         $response = $this->post('/schedules', $schedule);
     }
-
 
     /** @test */
     public function an_admin_user_can_add_a_schedule()

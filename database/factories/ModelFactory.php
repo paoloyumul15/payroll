@@ -78,6 +78,9 @@ $factory->define(PayPeriod::class, function (Faker\Generator $fake) {
 
 $factory->define(Schedule::class, function (Faker\Generator $fake) {
     return [
+        'company_id' => function () {
+            return factory(Company::class)->create()->id;
+        },
         'monday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'tuesday' => ['start' => '8:00:00', 'end' => '18:00:00'],
         'wednesday' => ['start' => '8:00:00', 'end' => '18:00:00'],
