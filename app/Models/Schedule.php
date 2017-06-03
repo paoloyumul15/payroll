@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Scopes\CompanyScope;
+
 class Schedule extends BaseModel
 {
     protected $fillable = [
+        'company_id',
         'tuesday',
         'wednesday',
         'thursday',
@@ -24,4 +27,26 @@ class Schedule extends BaseModel
         'sunday' => 'array',
         'is_default' => true,
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new CompanyScope);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public static function persist()
+    {
+        $attributes['company_id'] = companyId();
+
+        /** @var Schedule $schedule */
+        $schedule = (new self)->create($attributes);
+
+        return $schedule;
+    }
 }

@@ -17,11 +17,10 @@ class PersistingScheduleTest extends TestCase
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
 
         $user = $this->signIn(create(User::class, ['type' => 'Employee']));
-        $schedule = make(Schedule::class)->toArray();
+        $schedule = make(Schedule::class, ['company_id' => $user->company_id])->toArray();
 
         $response = $this->post('/schedules', $schedule);
     }
-
 
     /** @test */
     public function an_admin_user_can_add_a_schedule()

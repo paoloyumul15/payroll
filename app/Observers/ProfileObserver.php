@@ -2,13 +2,12 @@
 
 namespace App\Observers;
 
-
 use App\Models\Profile;
 
 class ProfileObserver
 {
     /**
-     * Listen to the User saving event.
+     * Listen to the Profile saving event.
      *
      * @param Profile $profile
      * @return void

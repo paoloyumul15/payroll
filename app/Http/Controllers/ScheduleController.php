@@ -8,14 +8,16 @@ class ScheduleController extends Controller
 {
     public function index()
     {
-        return view('schedules.index');
+        $schedules = Schedule::all();
+
+        return view('schedules.index', compact('schedules'));
     }
 
     public function store()
     {
         $this->authorize('store', Schedule::class);
 
-        Schedule::create(request()->all());
+        Schedule::persist(request()->all());
 
         return back();
     }
